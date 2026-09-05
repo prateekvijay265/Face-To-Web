@@ -1,117 +1,133 @@
-# Face-to-Web Discovery & Blockchain Verification Pipeline
+<div align="center">
 
-An end-to-end OSINT and cryptographic pipeline that allows journalists, investigators, and organizations to trace faces across the public web and immutably anchor the extracted evidence onto the Ethereum blockchain.
+<!-- Hero Banner using Capsule Render -->
+<img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=Face-To-Web&fontSize=70&fontAlignY=35&desc=AI%20Face%20Detection%20%2B%20Web%20Search%20%2B%20Blockchain%20Anchoring&descAlignY=55&descSize=20&descColor=ffffff" width="100%" />
 
-## Project Overview
+<!-- Animated Typing Effect -->
+<a href="https://github.com/prateekvijay265/Face-To-Web">
+  <img src="https://readme-typing-svg.demolab.com?font=Space+Grotesk&weight=700&size=24&pause=1000&color=FF5C00&center=true&vCenter=true&width=600&height=50&lines=Neural+Face+Detection;Reverse+Image+Search;Immutable+Blockchain+Evidence;Built+for+Hacker+House+Goa+2026" alt="Typing SVG" />
+</a>
 
-This system acts as a "Digital Evidence Workstation." The pipeline performs state-of-the-art facial recognition (via InsightFace ONNX runtime), executes visual web searches (via Bing Visual Search), crawls matched websites for raw HTML/image evidence, generates canonical SHA-256 fingerprints of the content, and anchors the proof onto the Sepolia Ethereum testnet.
+<br/>
 
-A subsequent independent verification engine allows users to cryptographically verify if the public web content has been tampered with since its original on-chain registration.
+<!-- Badges -->
+<a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-14-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" /></a>
+<a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/FastAPI-0.104-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" /></a>
+<a href="https://github.com/deepinsight/insightface"><img src="https://img.shields.io/badge/InsightFace-Buffalo_L-FF5C00?style=for-the-badge&logo=ai&logoColor=white" alt="InsightFace" /></a>
+<a href="https://ethereum.org/"><img src="https://img.shields.io/badge/Ethereum-Sepolia-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum" /></a>
+<a href="https://hhgoa.com/"><img src="https://img.shields.io/badge/HH_Goa-Task_3-FF0055?style=for-the-badge&logo=hackerone&logoColor=white" alt="HH Goa" /></a>
 
-## Architecture
+</div>
 
-The project is split into three decoupled tiers:
+<br/>
 
-1.  **Frontend (Next.js 16 + React 19)**: A strictly-typed, responsive UI built with Tailwind CSS. It natively streams Server-Sent NDJSON state updates from the backend to render exact, un-faked pipeline lifecycles.
-2.  **Backend (FastAPI 0.115 + Python 3.13)**: The orchestration engine. Handles memory-efficient OpenCV tensor manipulations, asynchronous HTTPX connection-pooled web crawling, deterministic canonicalization, and Web3 transaction signing.
-3.  **Blockchain (Ethereum Sepolia + Solidity)**: An immutable `ContentRegistry` smart contract deployed on the Sepolia testnet to act as a permanent timestamped cryptographic ledger.
+<img src="https://capsule-render.vercel.app/api?type=rect&color=FF5C00&height=5&section=footer" width="100%" />
 
-## Prerequisites
+## 🌌 Overview
 
--   **Node.js**: v26+
--   **Python**: 3.13+ (or `uv` package manager)
--   **OpenCV Dependencies**: (e.g., `libgl1` on Linux, natively supported on Windows/macOS)
--   **Ethereum Wallet**: An RPC URL (e.g., Alchemy/Infura) and a wallet private key funded with Sepolia ETH.
+**Face-to-Web** is an advanced, fully automated forensic pipeline built for **Hacker House Goa 2026 (Task 3)**. 
 
-## Local Setup
+It takes a single portrait photograph, extracts a 512-dimensional neural facial embedding, scours the open web in real-time for identical faces using reverse image search, and anchors the discovered digital evidence onto the **Ethereum Sepolia Blockchain** to guarantee cryptographic immutability.
 
-### 1. Environment Variables
+> *"Less noise. More signal. Anchor the truth."*
 
-We strictly prohibit committing secrets. Create a `.env` file in the root directory (refer to `.env.example`):
+---
 
-```bash
-cp .env.example .env
+## ✨ Core Features
+
+*   🎯 **Neural Face Detection**: Uses the production-grade `buffalo_l` model from InsightFace.
+*   🔍 **Live Web Search**: Integrates Google Vision and SerpAPI for 100% genuine, real-time reverse image matching. No hardcoded mock data.
+*   🔗 **Blockchain Anchoring**: Generates a deterministic SHA-256 fingerprint of the evidence and commits it to a smart contract on the Ethereum Sepolia testnet.
+*   ⚡ **Sub-Second Streaming**: Entire backend runs on FastAPI with Server-Sent Events (SSE), delivering real-time telemetry back to the React frontend.
+*   🎨 **Immersive UI/UX**: Custom design system featuring a dynamic workstation, real bounding box coordinate rendering, and seamless glassmorphism elements.
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=FF5C00&height=5&section=footer" width="100%" />
+
+## 📐 Architecture & Pipeline
+
+```mermaid
+graph TD
+    A[Upload Image] -->|Next.js| B(FastAPI Backend)
+    B --> C{InsightFace}
+    C -->|Extracts 512-dim Vector| D[Face Detected]
+    C -->|No Face/Multiple Faces| E[Error]
+    
+    D --> F{Google Vision / SerpAPI}
+    F -->|Reverse Image Search| G[Find Top Match URL & Source]
+    
+    G --> H{SHA-256 Hashing}
+    H -->|Fingerprint| I[Immutable Hash]
+    
+    I --> J{Web3.py}
+    J -->|Transaction| K[(Ethereum Sepolia Contract)]
+    
+    K --> L[Etherscan Verified Record]
+    
+    style A fill:#0d0d0d,stroke:#ff5c00,stroke-width:2px,color:#fff
+    style B fill:#0d0d0d,stroke:#ff5c00,stroke-width:2px,color:#fff
+    style C fill:#1a1a1a,stroke:#484848,stroke-width:1px,color:#fff
+    style D fill:#00e57a,stroke:#00e57a,stroke-width:2px,color:#000
+    style F fill:#1a1a1a,stroke:#484848,stroke-width:1px,color:#fff
+    style G fill:#00cfff,stroke:#00cfff,stroke-width:2px,color:#000
+    style H fill:#1a1a1a,stroke:#484848,stroke-width:1px,color:#fff
+    style I fill:#ffca28,stroke:#ffca28,stroke-width:2px,color:#000
+    style J fill:#1a1a1a,stroke:#484848,stroke-width:1px,color:#fff
+    style K fill:#ff5c00,stroke:#ff5c00,stroke-width:2px,color:#fff
 ```
 
-You must populate the following:
-*   `RPC_URL`: Your Alchemy/Infura HTTPS endpoint for Sepolia.
-*   `DEPLOYER_PRIVATE_KEY`: Your Ethereum wallet private key.
-*   `SEARCH_API_KEY`: Your Bing Visual Search API Key. (Required for `production`).
+<img src="https://capsule-render.vercel.app/api?type=rect&color=FF5C00&height=5&section=footer" width="100%" />
 
-### 2. Blockchain Setup & Contract Deployment
+## 🚀 Quick Start (Local Development)
 
-```bash
-cd blockchain
-npm install
-npx hardhat compile
-npx hardhat run scripts/deploy.js --network sepolia
-```
-*Note the deployed contract address and update `CONTRACT_ADDRESS` in your `.env` file.*
+### Prerequisites
+*   Python 3.11+
+*   Node.js 18+
+*   C++ Build Tools (Required for InsightFace/OpenCV)
+*   API Keys: SerpAPI, Infura/Alchemy (Sepolia), and an Ethereum Wallet Private Key.
 
-### 3. Backend Setup
+### 1️⃣ Backend Setup (FastAPI)
 
 ```bash
 cd backend
 python -m venv venv
-# Windows: venv\Scripts\activate | Mac/Linux: source venv/bin/activate
-pip install -r requirements.txt
-python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
-```
-*(The backend will automatically download the required InsightFace ONNX models to `~/.insightface` on first run).*
 
-### 4. Frontend Setup
+# Windows
+venv\Scripts\activate
+# Linux/Mac
+source venv/bin/activate
+
+pip install -r requirements.txt
+
+# Create your .env file
+cp .env.example .env
+
+# Run the server
+uvicorn app.main:app --reload --port 8000
+```
+*Note: The first run will automatically download the ~300MB `buffalo_l` model.*
+
+### 2️⃣ Frontend Setup (Next.js)
 
 ```bash
 cd frontend
 npm install
+
+# Run the development server
 npm run dev
 ```
-Navigate to `http://localhost:3000`.
+Navigate to `http://localhost:3000` to access the workstation.
 
-## Demo Procedure (Final User Journey)
+<img src="https://capsule-render.vercel.app/api?type=rect&color=FF5C00&height=5&section=footer" width="100%" />
 
-1.  **Launch**: Open the application to view the Digital Evidence Workstation dashboard.
-2.  **Upload**: Drag and drop a photograph containing a single human face.
-3.  **Real-Time Processing**: The UI will stream live backend states. You will see Face Detection initialize and extract a 512-dimensional embedding.
-4.  **Search**: The system queries the Bing Visual API to identify matching public content.
-5.  **Evidence Extraction**: The pipeline crawls the top candidate URL, parses the DOM, strips dynamic trackers, and standardizes the payload.
-6.  **Hashing**: A canonical SHA-256 fingerprint is generated.
-7.  **Blockchain Anchoring**: The backend signs a transaction to the Sepolia network. Wait for block confirmation. The UI will display the real Transaction Hash and Block Number.
-8.  **Verification**: Click the "Verify" panel to independently crawl the URL again, re-hash it, and compare it against the immutable Sepolia registry to prove non-tampering.
+## 📦 Deployment
 
-## Search Provider Setup (Bing Visual Search)
+This project is optimized for a split deployment:
 
-To obtain a valid search key:
-1. Navigate to the Azure Portal.
-2. Provision a "Bing Search v7" resource.
-3. Extract the `Key 1` and paste it into `SEARCH_API_KEY`.
-*Note: If `ENVIRONMENT=production`, the application will intentionally hard-crash with an HTTP 401 if this key is missing.*
+*   **Backend (Google Cloud Run)**: A `Dockerfile` is provided in the `/backend` directory. Deploy this as a container to Google Cloud Run (minimum 2 GiB memory recommended for InsightFace).
+*   **Frontend (Vercel)**: Connect the repository to Vercel, pointing the root directory to `frontend/`. Set `NEXT_PUBLIC_API_URL` to your Cloud Run service URL.
 
-## Testing & Quality Assurance
+<img src="https://capsule-render.vercel.app/api?type=rect&color=FF5C00&height=5&section=footer" width="100%" />
 
-**Backend Unit Tests (30/30 Pass)**:
-```bash
-cd backend
-pytest tests/
-```
-
-**Frontend Build Tests**:
-```bash
-cd frontend
-npm run build
-```
-
-## Known Limitations & Failure Modes
-
-*   **Sepolia Block Time**: Pipeline latency is dominated by Ethereum testnet block mining (fluctuating between 4s - 15s). The UI will gracefully spin on `BLOCKCHAIN_SUBMISSION` until a receipt is confirmed.
-*   **Search Limitations**: Certain news websites aggressively employ Cloudflare or CAPTCHAs, preventing the Evidence Extractor from parsing the HTML. The pipeline will safely catch this and yield a `SOURCE_BLOCKED` failure mode.
-*   **Dynamic Websites**: Single-Page Applications (SPAs) that require Javascript rendering are not currently supported by the `httpx` HTTP parser. Only static HTML DOM is canonicalized.
-
-## Troubleshooting
-
--   **`SEARCH_AUTH_ERROR`**: Your Bing API key is invalid or exhausted.
--   **`NO_FACE` / `MULTIPLE_FACES`**: The image uploaded violates the strict 1-face rule. Crop the image or use a different source.
--   **`BLOCKCHAIN_CONFIRMATION_TIMEOUT`**: The RPC provider dropped the connection, or Sepolia gas prices spiked.
-
----
-*Developed for advanced verifiable OSINT analysis.*
+<div align="center">
+  <p>Built with 🧡 for Hacker House Goa.</p>
+</div>
