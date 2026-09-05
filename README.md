@@ -23,23 +23,24 @@
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=FF5C00&height=5&section=footer" width="100%" />
 
-## 🌌 Overview
+## 🌌 What the Project Does
 
 **Face-to-Web** is an advanced, fully automated forensic pipeline built for **Hacker House Goa 2026 (Task 3)**. 
 
-It takes a single portrait photograph, extracts a 512-dimensional neural facial embedding, scours the open web in real-time for identical faces using reverse image search, and anchors the discovered digital evidence onto the **Ethereum Sepolia Blockchain** to guarantee cryptographic immutability.
+The application solves the problem of verifying digital identities and anchoring evidence securely. It performs the following sequential pipeline:
+1. **Face Detection**: Takes a portrait photograph and extracts a 512-dimensional neural facial embedding using the production-grade `buffalo_l` model from InsightFace.
+2. **Web Scraping / Search**: Scours the open web in real-time (using Google Vision / SerpAPI) to find exact visually similar matches and extract the source URL.
+3. **Blockchain Anchoring**: Generates a deterministic SHA-256 fingerprint of the resulting evidence and anchors it immutably to a smart contract.
 
 > *"Less noise. More signal. Anchor the truth."*
 
 ---
 
-## ✨ Core Features
+## ⛓️ Blockchain Used
 
-*   🎯 **Neural Face Detection**: Uses the production-grade `buffalo_l` model from InsightFace.
-*   🔍 **Live Web Search**: Integrates Google Vision and SerpAPI for 100% genuine, real-time reverse image matching. No hardcoded mock data.
-*   🔗 **Blockchain Anchoring**: Generates a deterministic SHA-256 fingerprint of the evidence and commits it to a smart contract on the Ethereum Sepolia testnet.
-*   ⚡ **Sub-Second Streaming**: Entire backend runs on FastAPI with Server-Sent Events (SSE), delivering real-time telemetry back to the React frontend.
-*   🎨 **Immersive UI/UX**: Custom design system featuring a dynamic workstation, real bounding box coordinate rendering, and seamless glassmorphism elements.
+This project anchors data to the **Ethereum Sepolia Testnet**. 
+
+We utilized the Sepolia testnet because it perfectly simulates the mainnet environment while allowing for free gas testing via faucets. The smart contract stores the SHA-256 hash of the web evidence, ensuring cryptographic immutability and proving that a specific face was linked to a specific web URL at a specific timestamp.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=FF5C00&height=5&section=footer" width="100%" />
 
@@ -77,7 +78,9 @@ graph TD
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=FF5C00&height=5&section=footer" width="100%" />
 
-## 🚀 Quick Start (Local Development)
+## 🚀 How to Run It (Local Development)
+
+Because the AI face detection model requires over 1GB of RAM, the most reliable way to run this project is locally.
 
 ### Prerequisites
 *   Python 3.11+
@@ -119,12 +122,11 @@ Navigate to `http://localhost:3000` to access the workstation.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=FF5C00&height=5&section=footer" width="100%" />
 
-## 📦 Deployment
+## ⚠️ Known Limitations
 
-This project is optimized for a split deployment:
-
-*   **Backend (Google Cloud Run)**: A `Dockerfile` is provided in the `/backend` directory. Deploy this as a container to Google Cloud Run (minimum 2 GiB memory recommended for InsightFace).
-*   **Frontend (Vercel)**: Connect the repository to Vercel, pointing the root directory to `frontend/`. Set `NEXT_PUBLIC_API_URL` to your Cloud Run service URL.
+1. **Hardware / RAM Requirements**: The `buffalo_l` InsightFace model requires a minimum of 1GB to 2GB of RAM to process image encodings. Because of this, it cannot be hosted on standard free-tier cloud providers (like Render or Vercel Serverless) without running out of memory. 
+2. **C++ Build Dependencies**: Installing the backend on a fresh machine requires a C++ compiler (`build-essential` on Linux or Visual Studio C++ Build Tools on Windows) for the `insightface` package to compile properly.
+3. **Search Engine Dependency**: The reverse image search accuracy relies heavily on Google Lens via SerpAPI. Extremely obscure or low-resolution faces may not return a match if they are not indexed by Google.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=FF5C00&height=5&section=footer" width="100%" />
 
