@@ -26,8 +26,8 @@ RUN python -c "from insightface.app import FaceAnalysis; app = FaceAnalysis(name
 # Copy the rest of the application
 COPY . .
 
-# Expose the port (Cloud Run uses 8080 by default, but we can configure it)
-EXPOSE 8080
+# Expose the port (Hugging Face Spaces uses 7860 by default)
+EXPOSE 7860
 
 # Command to run the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "7860"]
